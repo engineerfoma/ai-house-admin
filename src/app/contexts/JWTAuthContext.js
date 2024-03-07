@@ -15,11 +15,11 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "INIT": {
       const { isAuthenticated, user } = action.payload;
-      return { ...state, isAuthenticated: false, isInitialized: true, user };
+      return { ...state, isAuthenticated, isInitialized: true, user };
     }
 
     case "LOGIN": {
-      return { ...state, isAuthenticated: true, user: action.payload.user };
+      return { ...state, isAuthenticated: true, auth_token: action.payload.auth_token };
     }
 
     case "LOGOUT": {
@@ -50,22 +50,24 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const response = await axios.post(`${BASE_URL}/auth/token/login/`, { email, password });
-    console.log(response.data)
-    
-    const { user } = response.data;
-    dispatch({ type: "LOGIN", payload: { user } });
+    const { auth_token } = response.data;
+
+    localStorage.setItem('auth_token', auth_token);
+    dispatch({ type: "LOGIN", payload: auth_token });
   };
 
-  const register = async (email, first_name, password) => {
-    const response = await axios.post(`${BASE_URL}/auth/users/`, { email, first_name, password });
+  const register = async (email, phone, first_name, password) => {
+    const response = await axios.post(`${BASE_URL}/auth/users/`, { email, phone, first_name, password });
     console.log(response.data)
     
     const { user } = response.data;
 
     dispatch({ type: "REGISTER", payload: { user } });
+
   };
 
   const logout = () => {
+    localStorage.clear()
     dispatch({ type: "LOGOUT" });
   };
 
