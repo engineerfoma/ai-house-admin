@@ -56,7 +56,7 @@ const TopbarContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  background: theme.palette.primary.main,
+  background: "theme.palette.primary.main",
   [theme.breakpoints.down("sm")]: { paddingLeft: 16, paddingRight: 16 },
   [theme.breakpoints.down("xs")]: { paddingLeft: 14, paddingRight: 16 }
 }));
@@ -146,7 +146,7 @@ const Layout1Topbar = () => {
               <UserMenu>
                 <Hidden xsDown>
                   <Span>
-                    Hi <strong>{user.name}</strong>
+                    Hi <strong>{user.email}</strong>
                   </Span>
                 </Hidden>
                 <Avatar src={user.avatar} sx={{ cursor: "pointer" }} />
