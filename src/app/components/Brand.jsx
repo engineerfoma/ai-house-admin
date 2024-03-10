@@ -24,9 +24,9 @@ export default function Brand({ children }) {
   const { mode } = leftSidebar;
 
   return (
-    <BrandRoot>
+    <BrandRoot sx={{px: 3}}>
       <Box display="flex" alignItems="center">
-        <AsaiLogo />
+        <AsaiLogo mode={mode}/>
       </Box>
 
       <Box className="sidenavHoverShow" sx={{ display: mode === "compact" ? "none" : "block" }}>

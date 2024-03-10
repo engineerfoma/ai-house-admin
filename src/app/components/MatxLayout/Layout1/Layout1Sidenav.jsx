@@ -1,93 +1,104 @@
-import { memo } from "react";
-import { Hidden, Switch, Box, styled, useTheme } from "@mui/material";
+import { memo } from 'react'
+import { Hidden, Switch, Box, styled, useTheme } from '@mui/material'
 
-import useSettings from "app/hooks/useSettings";
+import useSettings from 'app/hooks/useSettings'
 
-import Brand from "app/components/Brand";
-import Sidenav from "app/components/Sidenav";
-import { themeShadows } from "app/components/MatxTheme/themeColors";
+import Brand from 'app/components/Brand'
+import Sidenav from 'app/components/Sidenav'
+import { themeShadows } from 'app/components/MatxTheme/themeColors'
 
-import { convertHexToRGB } from "app/utils/utils";
-import { sidenavCompactWidth, sideNavWidth } from "app/utils/constant";
+import { convertHexToRGB } from 'app/utils/utils'
+import { sidenavCompactWidth, sideNavWidth } from 'app/utils/constant'
 
 // STYLED COMPONENTS
-const SidebarNavRoot = styled(Box)(({ theme, width, bg, image }) => ({
-  position: "fixed",
+const SidebarNavRoot = styled(Box)(({ theme, width, bg, image, mode }) => ({
+  position: 'fixed',
   top: 0,
   left: 0,
-  height: "100vh",
+  height: '100vh',
   width: width,
   boxShadow: themeShadows[8],
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "top",
-  backgroundSize: "cover",
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'top',
+  backgroundSize: 'cover',
   zIndex: 111,
-  overflow: "hidden",
+  overflow: 'hidden',
   color: theme.palette.text.primary,
-  transition: "all 250ms ease-in-out",
+  transition: 'all 250ms ease-in-out',
   // linear-gradient(to bottom, rgba(${bg}, 0.96), rgba(${bg}, 0.96)), url(${image})
   backgroundImage: `linear-gradient(51deg,#203352 40%,#6587b8 70%,#8BADDC 100%)`,
-  "&:hover": {
+  '.asai-compact': {
+    display: mode,
+  },
+  '&:hover': {
     width: sideNavWidth,
-    "& .sidenavHoverShow": { display: "block" },
-    "& .compactNavItem": {
-      width: "100%",
-      maxWidth: "100%",
-      "& .nav-bullet": { display: "block" },
-      "& .nav-bullet-text": { display: "none" }
-    }
-  }
-}));
+    '& .sidenavHoverShow': { display: 'block' },
+    '& .compactNavItem': {
+      width: '100%',
+      maxWidth: '100%',
+      '& .nav-bullet': { display: 'block' },
+      '& .nav-bullet-text': { display: 'none' },
+    },
+    '.asai-compact': {
+      display: 'block',
+    },
+  },
+}))
 
 const NavListBox = styled(Box)({
-  height: "100%",
-  display: "flex",
-  flexDirection: "column"
-});
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+})
 
 const Layout1Sidenav = () => {
-  const theme = useTheme();
-  const { settings, updateSettings } = useSettings();
-  const leftSidebar = settings.layout1Settings.leftSidebar;
-  const { mode, bgImgURL } = leftSidebar;
+  const theme = useTheme()
+  const { settings, updateSettings } = useSettings()
+  const leftSidebar = settings.layout1Settings.leftSidebar
+  const { mode, bgImgURL } = leftSidebar
 
   const getSidenavWidth = () => {
     switch (mode) {
-      case "compact":
-        return sidenavCompactWidth;
+      case 'compact':
+        return sidenavCompactWidth
 
       default:
-        return sideNavWidth;
+        return sideNavWidth
     }
-  };
+  }
 
-  const primaryRGB = convertHexToRGB(theme.palette.primary.main);
+  const primaryRGB = convertHexToRGB(theme.palette.primary.main)
 
   const updateSidebarMode = (sidebarSettings) => {
-    updateSettings({ layout1Settings: { leftSidebar: { ...sidebarSettings } } });
-  };
+    updateSettings({ layout1Settings: { leftSidebar: { ...sidebarSettings } } })
+  }
 
   const handleSidenavToggle = () => {
-    updateSidebarMode({ mode: mode === "compact" ? "full" : "compact" });
-  };
+    updateSidebarMode({ mode: mode === 'compact' ? 'full' : 'compact' })
+  }
 
   return (
-    <SidebarNavRoot image={bgImgURL} bg={primaryRGB} width={getSidenavWidth()}>
+    <SidebarNavRoot
+      image={bgImgURL}
+      bg={primaryRGB}
+      width={getSidenavWidth()}
+      mode={mode === 'compact' ? 'none' : 'block'}
+    >
       <NavListBox>
         <Brand>
           <Hidden smDown>
             <Switch
               onChange={handleSidenavToggle}
-              checked={leftSidebar.mode !== "full"}
-              color="secondary"
-              size="small"
+              checked={leftSidebar.mode !== 'full'}
+              color='secondary'
+              size='small'
             />
           </Hidden>
         </Brand>
         <Sidenav />
       </NavListBox>
     </SidebarNavRoot>
-  );
-};
+  )
+}
 
-export default memo(Layout1Sidenav);
+export default memo(Layout1Sidenav)

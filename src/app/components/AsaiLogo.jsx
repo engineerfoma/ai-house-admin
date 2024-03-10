@@ -1,6 +1,6 @@
 import useSettings from 'app/hooks/useSettings'
 
-export default function AsaiLogo({ className }) {
+export default function AsaiLogo({ mode }) {
   const { settings } = useSettings()
   const theme = settings.themes[settings.activeTheme]
 
@@ -10,8 +10,9 @@ export default function AsaiLogo({ className }) {
       width='100.0'
       height='100.0'
     >
+      {/* {{display: mode === 'compact' ? 'none' : 'block'}} */}
       <g>
-        <g>
+        <g className='asai-compact'>
           <g>
             <path
               fill='#fff'
