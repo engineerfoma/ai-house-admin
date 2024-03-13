@@ -88,19 +88,11 @@ export default function UsersTableList({ userList, count, onSelect }) {
               >
                 телефон
               </TableCell>
-
               <TableCell
                 colSpan={2}
                 sx={{ pr: 4, whiteSpace: 'nowrap' }}
               >
                 баланс
-              </TableCell>
-
-              <TableCell
-                colSpan={2}
-                sx={{ pr: 4, whiteSpace: 'nowrap' }}
-              >
-                последний вход
               </TableCell>
               <TableCell
                 colSpan={2}
@@ -187,19 +179,6 @@ export default function UsersTableList({ userList, count, onSelect }) {
                       <Paragraph>{user.balance} ₽</Paragraph>
                     </Box>
                   </TableCell>
-                  <TableCell
-                    sx={{ pr: 4, whiteSpace: 'nowrap' }}
-                    colSpan={2}
-                  >
-                    <Box
-                      display='flex'
-                      alignItems='center'
-                      gap={4}
-                    >
-                      <Paragraph>{user.last_login}</Paragraph>
-                    </Box>
-                  </TableCell>
-
                   <TableCell
                     sx={{ pr: 4, whiteSpace: 'nowrap' }}
                     colSpan={2}

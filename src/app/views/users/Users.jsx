@@ -1,8 +1,7 @@
 import { Fragment } from 'react'
-import { Card, Grid, styled, useTheme, Pagination } from '@mui/material'
-import UsersTableList from './shared/usersTableList'
-import { baseUserLimit } from 'app/utils/constant'
-
+import { Grid, styled, Pagination } from '@mui/material'
+import UsersTableList from './shared/UsersTableList'
+import UsersAddDialog from './shared/UsersAddDialog'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -14,28 +13,7 @@ const ContentBox = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('sm')]: { margin: '16px' },
 }))
 
-const Title = styled('span')(() => ({
-  fontSize: '1rem',
-  fontWeight: '500',
-  marginRight: '.5rem',
-  textTransform: 'capitalize',
-}))
-
-const SubTitle = styled('span')(({ theme }) => ({
-  fontSize: '0.875rem',
-  color: theme.palette.text.secondary,
-}))
-
-const H4 = styled('h4')(({ theme }) => ({
-  fontSize: '1rem',
-  fontWeight: '500',
-  marginBottom: '16px',
-  textTransform: 'capitalize',
-  color: theme.palette.text.secondary,
-}))
-
 export default function Users() {
-  const { palette } = useTheme()
   const [page, setPage] = useState(1)
   const [users, setUsers] = useState(null)
   const [count, setCount] = useState(null)
@@ -88,6 +66,7 @@ export default function Users() {
             sm={12}
             xs={12}
           >
+            <UsersAddDialog />
             <UsersTableList
               userList={users}
               count={count}
